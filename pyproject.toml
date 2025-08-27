@@ -11,13 +11,12 @@ dependencies = [
     "shapely>=2.0.0"
 ]
 
-[project.optional-dependencies]
-
-
-test = [
-    "pytest >= 8.0.0",
-]
-
 [build-system]
 requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "pytest>=8.4.1",
+]
