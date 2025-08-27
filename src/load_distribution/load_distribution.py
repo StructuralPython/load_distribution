@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Optional
 from dataclasses import dataclass
 import numpy.typing as npt
-from ..geometry import geom_ops
+from load_distribution import geom_ops
 from shapely.geometry import (
     Polygon,
     MultiPolygon,
