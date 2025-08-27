@@ -1,0 +1,16 @@
+[project]
+name = "load-distribution"
+dynamic = ["version", "description"]
+readme = "README.md"
+authors = [
+    { name = "Connor Ferster", email = "connor@structuralpython.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0.0",
+    "shapely>=2.0.0"
+]
+
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
