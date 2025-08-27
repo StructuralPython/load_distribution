@@ -13,6 +13,9 @@ dependencies = [
 
 [project.optional-dependencies]
 
+dev = [
+    "black"
+]
 
 test = [
     "pytest >= 8.0.0",
