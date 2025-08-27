@@ -68,20 +68,22 @@ dependencies = [
     { name = "shapely" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "black" },
-]
-test = [
     { name = "pytest" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "black", marker = "extra == 'dev'" },
     { name = "numpy", specifier = ">=2.0.0" },
-    { name = "pytest", marker = "extra == 'test'", specifier = ">=8.0.0" },
     { name = "shapely", specifier = ">=2.0.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "black", specifier = ">=25.1.0" },
+    { name = "pytest", specifier = ">=8.4.1" },
 ]
 
 [[package]]
