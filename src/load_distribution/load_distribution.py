@@ -202,7 +202,9 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
             if prev_x is not None and not math.isclose(prev_x, sing.x0):
                 x_acc.append(sing.x0)
             x_acc.append(sing.x0 + eps)
-            x_acc.append(sing.x1 - 10 * eps)
+            x_acc.append(sing.x1 - eps)
+            x_acc.append(sing.x1)
+            x_acc.append(sing.x1 + eps)
             prev_x = sing.x1
 
     # There are two scenarios: sing functions that describe trapezoids/triangles
