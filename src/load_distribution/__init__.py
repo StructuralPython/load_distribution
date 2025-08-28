@@ -3,6 +3,6 @@ A package for converting arbitrary polygons into linearly distributed
 loads on beams or other linear elements.
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 from load_distribution.load_distribution import *
