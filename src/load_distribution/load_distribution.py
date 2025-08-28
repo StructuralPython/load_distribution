@@ -183,18 +183,27 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
     prev_x = None
     n = None
     # Create a list of the x-ordinates required
-    # Always starts on 0.0
-    x_acc.append(0.0)
-    for idx, sing in enumerate(sorted_sings):
+    if len(sorted_sings) == 1:
+        sing = sorted_sings[0]
         n = sing.precision
-        eps = 10 ** (-2 * n)
-        if prev_x != sing.x0 and prev_x is not None:
-            x_acc.append(prev_x + eps)
-        if prev_x is not None and not math.isclose(prev_x, sing.x0):
-            x_acc.append(sing.x0)
+        eps = 10 ** (-2 * n - 1)
+        x_acc.append(sing.x0)
         x_acc.append(sing.x0 + eps)
         x_acc.append(sing.x1 - eps)
-        prev_x = sing.x1
+        x_acc.append(sing.x1)
+    else:
+        # Always starts on 0.0
+        x_acc.append(0.0)
+        for idx, sing in enumerate(sorted_sings):
+            n = sing.precision
+            eps = 10 ** (-2 * n)
+            if prev_x != sing.x0 and prev_x is not None:
+                x_acc.append(prev_x + eps)
+            if prev_x is not None and not math.isclose(prev_x, sing.x0):
+                x_acc.append(sing.x0)
+            x_acc.append(sing.x0 + eps)
+            x_acc.append(sing.x1 - 10 * eps)
+            prev_x = sing.x1
 
     # There are two scenarios: sing functions that describe trapezoids/triangles
     # and sing functions that describe step functions (rectangles). To ensure
@@ -203,6 +212,7 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
     # duplicate x-ordinates. The goal is to have the minimum amount to describe the
     # required shape, even if that means the exact x value is omitted (because we are
     # keeping the value immediately to the left and immediately to the right instead).
+    print(f"{x_acc=}")
     x_acc = sorted(list(set(x_acc)))
     x_ord_count = Counter([round(x, 6) for x in x_acc])
     to_filter = []
