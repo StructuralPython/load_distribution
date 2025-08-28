@@ -1,4 +1,6 @@
 from __future__ import annotations
+from collections import Counter
+import math
 from typing import Optional
 from dataclasses import dataclass
 import numpy.typing as npt
@@ -180,26 +182,41 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
     x_acc = []
     prev_x = None
     n = None
-    print(sorted_sings)
+    # Create a list of the x-ordinates required
+    # Always starts on 0.0
+    x_acc.append(0.0)
     for idx, sing in enumerate(sorted_sings):
         n = sing.precision
         eps = 10 ** (-2 * n)
         if prev_x != sing.x0 and prev_x is not None:
             x_acc.append(prev_x + eps)
-        if sing.m == 0: # If the slope is 0.0, we have a step function which needs to be treated differently
+        if prev_x is not None and not math.isclose(prev_x, sing.x0):
             x_acc.append(sing.x0)
-            x_acc.append(sing.x0 + eps)
-            x_acc.append(sing.x1 - eps)
-            x_acc.append(sing.x1)
-        else:
-            x_acc.append(sing.x0)
-            x_acc.append(sing.x1-eps)
-            x_acc.append(sing.x1)
+        x_acc.append(sing.x0 + eps)
+        x_acc.append(sing.x1 - eps)
         prev_x = sing.x1
 
+    # There are two scenarios: sing functions that describe trapezoids/triangles
+    # and sing functions that describe step functions (rectangles). To ensure
+    # we get enough points to fully describe each, we end up getting too many
+    # x ordinates in some cases. The below is a filter to look for the unnecessary
+    # duplicate x-ordinates. The goal is to have the minimum amount to describe the
+    # required shape, even if that means the exact x value is omitted (because we are
+    # keeping the value immediately to the left and immediately to the right instead).
     x_acc = sorted(list(set(x_acc)))
+    x_ord_count = Counter([round(x, 6) for x in x_acc])
+    to_filter = []
+    for key, count in x_ord_count.items():
+        if count == 3:
+            to_filter.append(key)
+    for filter_val in to_filter:
+        index = x_acc.index(filter_val)
+        x_acc.pop(index)
+
+    # Now, for every x value, compute the corresponding y value
     y_acc = [sum([sing(x) for sing in sorted_sings]) for x in x_acc[:-1]]
-    y_acc += [0.0]
+    # Always ends on 0.0
+    y_acc.append(0.0)
     if xy:
         return x_acc, y_acc
     else:

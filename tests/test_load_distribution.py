@@ -175,25 +175,26 @@ def test_singularities_to_polygon():
 
     assert (
         ld.singularities_to_polygon(square_45_sings[0] + square_45_sings[1]).wkt
-        == "POLYGON ((0 0, 0 0, 5 10, 5 10, 10 0, 10 0, 0 0))"
+        == "POLYGON ((0 0, 0 0, 5 10, 5 10, 10 0, 0 0))"
+        # == "POLYGON ((0 0, 5 10, 5 10, 10 0, 10 0, 0 0))"
     )
     assert (
         ld.singularities_to_polygon(
             square_pac_man_sings[0] + square_pac_man_sings[1]
         ).wkt
-        == "POLYGON ((0 0, 0 10, 5 10, 5 10, 10 0, 10 0, 10 0, 0 0))"
+        == "POLYGON ((0 0, 0 10, 5 10, 5 10, 10 0, 10 0, 0 0))"
     )
     assert (
         ld.singularities_to_polygon(
             square_bow_tie_sings[0] + square_bow_tie_sings[1]
         ).wkt
-        == "POLYGON ((0 0, 0 0, 4 10, 4 10, 6 10, 6 10, 10 0, 10 0, 10 0, 0 0))"
+        == "POLYGON ((0 0, 0 0, 4 10, 4 10, 6 10, 6 10, 10 0, 10 0, 0 0))"
     )
     assert (
         ld.singularities_to_polygon(
             square_with_L_hole_sings[0] + square_with_L_hole_sings[1]
         ).wkt
-        == "POLYGON ((0 0, 0 10, 2 10, 2 4, 4 4, 4 8, 8 8, 8 8, 8 10, 10 10, 10 0, 0 0))"
+        == "POLYGON ((0 0, 0 10, 2 10, 2 4, 4 4, 4 8, 8 8, 8 10, 10 10, 10 0, 0 0))"
     )
 
 
