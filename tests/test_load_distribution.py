@@ -175,8 +175,7 @@ def test_singularities_to_polygon():
 
     assert (
         ld.singularities_to_polygon(square_45_sings[0] + square_45_sings[1]).wkt
-        == "POLYGON ((0 0, 0 0, 5 10, 5 10, 10 0, 0 0))"
-        # == "POLYGON ((0 0, 5 10, 5 10, 10 0, 10 0, 0 0))"
+        == "POLYGON ((0 0, 0 0, 5 10, 5 10, 10 0, 10 0, 0 0))"
     )
     assert (
         ld.singularities_to_polygon(
@@ -202,7 +201,13 @@ def test_singularities_to_polygon():
         ).wkt
         == "POLYGON ((1 0, 1 10, 3 10, 3 0, 1 0))"
     )
-
+    assert (
+        ld.singularities_to_polygon([
+            ld.Singularity(x0=0, x1=4, m=0.0, y0=5, precision=6, eps=1e-12),
+            ld.Singularity(x0=0, x1=2.5, m=0.0, y0=40, precision=6, eps=1e-12)
+        ]).wkt
+        == "POLYGON ((0 0, 0 45, 2.5 45, 2.5 5, 4 5, 4 0, 0 0))"
+    )
 
 def test_overlap_region_to_singularity():
     assert ld.overlap_region_to_singularity(
