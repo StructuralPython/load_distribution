@@ -199,7 +199,6 @@ def test_singularities_to_polygon():
     assert (
         ld.singularities_to_polygon(
             [ld.Singularity(x0=1.0, x1=3.0, m=0.0, y0=10.0, precision=6, eps=1e-12)]
-
         ).wkt
         == "POLYGON ((1 0, 1 10, 3 10, 3 0, 1 0))"
     )
