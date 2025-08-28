@@ -180,19 +180,22 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
     x_acc = []
     prev_x = None
     n = None
+    print(sorted_sings)
     for idx, sing in enumerate(sorted_sings):
         n = sing.precision
         eps = 10 ** (-2 * n)
         if prev_x != sing.x0 and prev_x is not None:
             x_acc.append(prev_x + eps)
-        x_acc.append(sing.x0)
-        x_acc.append(sing.x0 + eps)
-        if idx == len(sorted_sings) - 1:
+        if sing.m == 0: # If the slope is 0.0, we have a step function which needs to be treated differently
+            x_acc.append(sing.x0)
+            x_acc.append(sing.x0 + eps)
             x_acc.append(sing.x1 - eps)
-        x_acc.append(sing.x1)
-        prev_x = sing.x1
-        if idx == len(sorted_sings) - 1:  # Last iteration of actual iterations
             x_acc.append(sing.x1)
+        else:
+            x_acc.append(sing.x0)
+            x_acc.append(sing.x1-eps)
+            x_acc.append(sing.x1)
+        prev_x = sing.x1
 
     x_acc = sorted(list(set(x_acc)))
     y_acc = [sum([sing(x) for sing in sorted_sings]) for x in x_acc[:-1]]
