@@ -212,7 +212,6 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
     # duplicate x-ordinates. The goal is to have the minimum amount to describe the
     # required shape, even if that means the exact x value is omitted (because we are
     # keeping the value immediately to the left and immediately to the right instead).
-    print(f"{x_acc=}")
     x_acc = sorted(list(set(x_acc)))
     x_ord_count = Counter([round(x, 6) for x in x_acc])
     to_filter = []
