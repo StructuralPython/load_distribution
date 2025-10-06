@@ -215,14 +215,18 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
     # required shape, even if that means the exact x value is omitted (because we are
     # keeping the value immediately to the left and immediately to the right instead).
     x_acc = sorted(list(set(x_acc)))
+
     x_ord_count = Counter([round(x, 6) for x in x_acc])
     to_filter = []
     for key, count in x_ord_count.items():
         if count == 3:
             to_filter.append(key)
-    for filter_val in to_filter:
-        index = x_acc.index(filter_val)
-        x_acc.pop(index)
+
+    if to_filter:
+        rounded_x_acc = [round(x, 6) for x in x_acc]
+        for filter_val in to_filter:
+            index = rounded_x_acc.index(filter_val)
+            x_acc.pop(index)
 
     # Now, for every x value, compute the corresponding y value
     y_acc = [sum([sing(x) for sing in sorted_sings]) for x in x_acc[:-1]]
