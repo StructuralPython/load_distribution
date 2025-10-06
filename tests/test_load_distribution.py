@@ -173,6 +173,11 @@ def test_singularities_to_polygon():
     square_bow_tie_sings = ld.get_singularity_functions(square_bow_tie)
     square_with_L_hole_sings = ld.get_singularity_functions(square_with_L_hole)
 
+    real_world_singularities = [
+        ld.Singularity(x0=0.034367933446777243, x1=0.051573454339195024, m=29.060439560440315, y0=0.0, precision=6, eps=1e-12), 
+        ld.Singularity(x0=0.051573454339195024, x1=11.704999999999998, m=0.0, y0=0.5, precision=6, eps=1e-12)
+    ]
+
     assert (
         ld.singularities_to_polygon(square_45_sings[0] + square_45_sings[1]).wkt
         == "POLYGON ((0 0, 0 0, 5 10, 5 10, 10 0, 10 0, 0 0))"
@@ -207,6 +212,11 @@ def test_singularities_to_polygon():
             ld.Singularity(x0=0, x1=2.5, m=0.0, y0=40, precision=6, eps=1e-12)
         ]).wkt
         == "POLYGON ((0 0, 0 45, 2.5 45, 2.5 5, 4 5, 4 0, 0 0))"
+    )
+
+    # This test fails due to an error in filtering
+    assert (
+        ld.singularities_to_polygon(real_world_singularities) == "some text"
     )
 
 def test_overlap_region_to_singularity():
