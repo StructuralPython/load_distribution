@@ -1,4 +1,5 @@
 import load_distribution as ld
+import test_data as data
 from shapely import Polygon, GeometryCollection
 
 import pytest
@@ -235,6 +236,13 @@ def test_singularities_to_polygon():
         ld.singularities_to_polygon(real_world_singularities).wkt
         == "POLYGON ((0 0, 0.034368 0, 0.051573 0.5, 0.051573 0.5, 11.705 0.5, 11.705 0, 0 0))"
     )
+
+    # This test fails due to popping multiple items from a list where the indexes have changed
+    # because of the popping
+
+    assert (
+        ld.singularities_to_polygon(data.big_list_o_singularities).wkt
+    ) == "FAILING TEST"
 
 
 def test_overlap_region_to_singularity():
