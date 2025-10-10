@@ -1,6 +1,8 @@
 from load_distribution import Singularity
 import numpy as np
 
+# An output from papermodels that caused an error in the singularities_to_polygon function due to lots of list popping
+
 big_list_o_singularities = [
     Singularity(
         x0=6.628,

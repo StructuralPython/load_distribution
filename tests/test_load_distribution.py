@@ -241,8 +241,9 @@ def test_singularities_to_polygon():
     # because of the popping
 
     assert (
-        ld.singularities_to_polygon(data.big_list_o_singularities).wkt
-    ) == "FAILING TEST"
+        (ld.singularities_to_polygon(data.big_list_o_singularities).wkt)
+        == "POLYGON ((0 0, 0.001 0, 0.001 3396.431373, 0.413 3396.431373, 0.413 -1656.718815, 3.172 -1656.718815, 3.172 -2981.839131, 3.504 -2981.839131, 3.504 -1325.120316, 6.628 -1325.120316, 6.628 -1991.55609, 6.876 -1991.55609, 6.876 -666.435774, 7.57 -666.435774, 7.57 3157.111452, 7.859 3157.111452, 7.859 0, 0 0))"
+    )
 
 
 def test_overlap_region_to_singularity():
