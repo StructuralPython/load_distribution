@@ -1,4 +1,5 @@
 import load_distribution as ld
+import test_data as data
 from shapely import Polygon, GeometryCollection
 
 import pytest
@@ -234,6 +235,14 @@ def test_singularities_to_polygon():
     assert (
         ld.singularities_to_polygon(real_world_singularities).wkt
         == "POLYGON ((0 0, 0.034368 0, 0.051573 0.5, 0.051573 0.5, 11.705 0.5, 11.705 0, 0 0))"
+    )
+
+    # This test fails due to popping multiple items from a list where the indexes have changed
+    # because of the popping
+
+    assert (
+        (ld.singularities_to_polygon(data.big_list_o_singularities).wkt)
+        == "POLYGON ((0 0, 0.001 0, 0.001 3396.431373, 0.413 3396.431373, 0.413 -1656.718815, 3.172 -1656.718815, 3.172 -2981.839131, 3.504 -2981.839131, 3.504 -1325.120316, 6.628 -1325.120316, 6.628 -1991.55609, 6.876 -1991.55609, 6.876 -666.435774, 7.57 -666.435774, 7.57 3157.111452, 7.859 3157.111452, 7.859 0, 0 0))"
     )
 
 
