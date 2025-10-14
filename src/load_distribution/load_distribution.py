@@ -238,7 +238,7 @@ def singularities_to_polygon(los: list[Singularity], xy: bool = False) -> Polygo
     # Always ends on 0.0
     y_acc.append(0.0)
     if xy:
-        return x_acc, y_acc
+        return filtered_x, y_acc
     else:
         precision = n if n else 2
         xy_acc = zip(
