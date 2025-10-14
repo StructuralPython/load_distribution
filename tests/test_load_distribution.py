@@ -198,6 +198,10 @@ def test_singularities_to_polygon():
         == "POLYGON ((0 0, 0 0, 5 10, 5 10, 10 0, 10 0, 0 0))"
     )
     assert (
+        ld.singularities_to_polygon(square_45_sings[0] + square_45_sings[1], xy=True)
+        == ([0.0, 1e-12, 4.999999999999, 5.000000000001, 9.999999999999, 10.000000000001], [0.0, 0.0, 10.0, 10.0, 0.0, 0.0])
+    )
+    assert (
         ld.singularities_to_polygon(
             square_pac_man_sings[0] + square_pac_man_sings[1]
         ).wkt
